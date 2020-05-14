@@ -71,6 +71,7 @@ export default {
   methods: {
     // 点击登录按钮
     login() {
+      // 验证表单
       this.$refs.loginForm_ref.validate(async valid => {
         if (!valid) {
           return;
