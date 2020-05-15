@@ -488,7 +488,6 @@ export default {
         return this.$message.error("获取角色列表失败");
       }
       this.rolesList = res.data;
-      console.log(this.rolesList);
       this.setRoleDialogVisible = true;
     },
     // 点击分配角色对话框确定按钮
