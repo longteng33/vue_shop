@@ -43,6 +43,16 @@ const routes = [
         path:'/params',
         component:() => import(/* webpackChunkName: "params" */ '../components/goods/params.vue'),
       },
+      {
+        path:'/goods',
+        component:() => import(/* webpackChunkName: "list" */ '../components/goods/list.vue'),
+        
+      },
+      {
+        path:'/goods/add',
+        component:() => import(/* webpackChunkName: "list" */ '../components/goods/add.vue'),
+        
+      },
     ],
   }
 ]
