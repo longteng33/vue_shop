@@ -50,8 +50,11 @@ const routes = [
       },
       {
         path:'/goods/add',
-        component:() => import(/* webpackChunkName: "list" */ '../components/goods/add.vue'),
-        
+        component:() => import(/* webpackChunkName: "add" */ '../components/goods/add.vue'),
+      },
+      {
+        path:'/orders',
+        component:() => import(/* webpackChunkName: "order" */ '../components/order/order.vue'),
       },
     ],
   }

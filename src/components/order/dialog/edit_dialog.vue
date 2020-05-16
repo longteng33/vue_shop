@@ -1,26 +1,7 @@
 <template>
-<!-- 使用步骤：
-1、替换edit
-2、替换dialog_attr_name,也可拷贝后再替换
-3、拷贝组件
-4、拷贝两个数据
-5、拷贝一个函数
-6、在触发中执行this.dialog_edit_click = !this.dialog_edit_click; -->
   <div>
-    <!-- 点击edit按钮弹出的对话框 -->
-    <!-- clickBtn是点击某按钮展示此对话框 -->
-    <!-- confirm是点击对话框中的确定按钮后的回调 -->
-    <!-- dialogForm是父组件传给子组件的数据对象 -->
-    <edit-dialog
-      :clickBtn="dialog_edit_click"
-      @confirm="dialog_edit_confirm"
-      :dialogForm="editForm"
-    ></edit-dialog>
-    <!--  -->
-    <!--  -->
-    <!--  -->
     <el-dialog
-      title="edit"
+      title="修改地址"
       :visible.sync="dialogVisible"
       width="50%"
       @close="dialogClosed"
@@ -35,10 +16,22 @@
       >
         <!-- label-width是前面的文本宽度 -->
         <el-form-item
-          label="参数名称"
-          prop="dialog_attr_name"
+          label="省市区/县"
+          prop="address1"
         >
-          <el-input v-model="dialogForm.dialog_attr_name"></el-input>
+          <el-cascader
+            :options="cityData"
+            v-model="dialogForm.address1"
+            :props="{ expandTrigger: 'hover' }"
+            style="width:100%"
+            clearable
+          ></el-cascader>
+        </el-form-item>
+        <el-form-item
+          label="详细地址"
+          prop="address2"
+        >
+          <el-input v-model="dialogForm.address2"></el-input>
         </el-form-item>
       </el-form>
       <span
@@ -60,37 +53,35 @@ export default {
   // clickBtn响应按钮的点击
   // dialogForm对话框中的表单数据对象
   // callback点击确定按钮后的回调函数
-  props: ["callback","clickBtn","dialogForm"],
+  props: ["callback", "clickBtn", "dialogForm","cityData"],
   created() {},
   mounted() {},
   data() {
     return {
-      initValue:'',
-      dialogVisible:false,
+      initValue: "",
+      dialogVisible: false,
+      // 表单绑定的数据对象
+      // dialogForm:{},
       // 对话框中的表单验证规则
       dialogForm_rules: {
-        dialog_attr_name: [{ required: true, message: "请输入参数", trigger: "blur" }]
-      },
-      // 
-      // 拷贝
-      //  控制edit-dialog对话框显示隐藏
-      dialog_edit_click: false,
-      editForm: {
-          dialog_attr_name:'',
-      },
-      // 
-      // 
+        address1: [
+          { required: true, message: "请选择省市区/县", trigger: "blur" }
+        ],
+        address2: [
+          { required: true, message: "请填写详细地址", trigger: "blur" }
+        ]
+      }
     };
   },
-  watch:{
-    clickBtn(val){
-        this.dialogVisible=true;
+  watch: {
+    clickBtn(val) {
+      this.dialogVisible = true;
     }
   },
   methods: {
     // 对话框打开时触发
-    dialogOpen(){
-      this.initValue=this.dialogForm.dialog_attr_name;
+    dialogOpen() {
+      this.initValue = this.dialogForm.address1;
     },
     // 对话框关闭时触发
     dialogClosed() {
@@ -104,23 +95,20 @@ export default {
           return;
         }
         // 如果内容没有发生改变，则不发送请求
-         if(this.initValue===this.dialogForm.dialog_attr_name){
-          this.$message.error("请修改参数值")
+        if (this.initValue === this.dialogForm.address1) {
+          this.$message.error("请修改参数值");
           return;
         }
-        this.dialogVisible=false;
+        this.dialogVisible = false;
         this.$emit("confirm");
-        
       });
-    },
-
-    // 拷贝
-    // 点击edit对话框的确定按钮
-    dialog_edit_confirm() {},
+    }
   }
 };
 </script>
 
 <style scoped lang="less">
 </style>
+
+
 
