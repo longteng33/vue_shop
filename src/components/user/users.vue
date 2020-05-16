@@ -270,6 +270,7 @@
 </template>
 
 <script>
+import {$confirm} from "../../utils/tools"
 export default {
   created() {
     this.getUserList();
@@ -455,19 +456,19 @@ export default {
     },
     // 点击删除按钮，根据id删除对应的用户
     async handleRemoveId(id) {
-      const result = await this.$confirm(
-        "此操作将永久删除该用户, 是否继续?",
-        "提示",
-        {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          // type是前面的小图标
-          type: "warning"
-          // 如果点击确认，则result是字符串"confirm"
-          // 如果点取消，则报错,捕捉这个错误并返回给result，它是字符串"cancel"
-        }
-      ).catch(err => err);
-
+      // const result = await this.$confirm(
+      //   "此操作将永久删除该用户, 是否继续?",
+      //   "提示",
+      //   {
+      //     confirmButtonText: "确定",
+      //     cancelButtonText: "取消",
+      //     // type是前面的小图标
+      //     type: "warning"
+      //     // 如果点击确认，则result是字符串"confirm"
+      //     // 如果点取消，则报错,捕捉这个错误并返回给result，它是字符串"cancel"
+      //   }
+      // ).catch(err => err);
+  const result=await $confirm(this);
       if (result !== "confirm") {
         return;
       }
